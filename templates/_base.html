@@ -1,0 +1,8 @@
+<html>
+  <head>
+    <title>{% block title %}{{ escape(title) if 'title' in globals() else "Default Title" }}{% end %}</title>
+  </head>
+  <body>
+    {% block body %}{% end %}
+  </body>
+</html>

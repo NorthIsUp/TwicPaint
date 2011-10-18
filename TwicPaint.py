@@ -16,7 +16,7 @@ from pprint import pformat, pprint
 import ConfigParser
 import urllib
 import logging
-
+import os
 import bg
 
 define("port", default=8888, help="run on the given port", type=int)
@@ -40,10 +40,12 @@ class Application(tornado.web.Application):
             (r"/auth/login", AuthHandler),
             (r"/auth/logout", LogoutHandler),
             (r"/bg", BackGroundHandler),
+            # (r"/images/bgs/(.*)", tornado.web.StaticFileHandler, {"path": os.path.join(os.path.dirname(__file__), "static/bgs")}),
+            (r"/images/(.*)", tornado.web.StaticFileHandler, {"path": os.path.join(os.path.dirname(__file__), "static")}),
         ]
         settings = dict(
             login_url="/auth/login",
-            
+            template_path="templates",
             cookie_secret=cookie_secret,
             twitter_consumer_key=twitter_consumer_key,
             twitter_consumer_secret=twitter_consumer_secret,
@@ -102,8 +104,12 @@ class MainHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self):
         name = tornado.escape.xhtml_escape(self.current_user["name"])
-        self.write("Hello, " + name)
-        self.write("<br><br><a href=\"/bg\">bg</a><br><br><a href=\"/auth/logout\">Log out</a>")
+        d = {
+        'name':name,
+        'title':"Welcome!",
+        'bg':bg.bg.keys(),
+        }
+        self.render("swatch.html", **d)
 
 
 class BackGroundHandler(BaseHandler):
@@ -114,10 +120,14 @@ class BackGroundHandler(BaseHandler):
         logging.info("=*"*40)
         logging.info("=*"*40)
         
+        size = self.get_argument("size", default="16")
+        size = size if size in ['16','32'] else '16'
+        
+        bg_id = self.get_argument("bg_id")
         user = self.get_current_user()
         
-        headers = bg.bg[25][0]
-        body=bg.bg[25][1]
+        headers = bg.bg[bg_id][size]["headers"]
+        body=bg.bg[bg_id][size]["mime_data"]
         
         self.twitter_request(
             "/account/update_profile_background_image",
