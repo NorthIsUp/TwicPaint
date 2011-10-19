@@ -13,7 +13,7 @@ def _pack_image(filename, max_size):
     # image must be less than 700kb in size
     try:
         if os.path.getsize(filename) > (max_size * 1024):
-            raise Exception('File is too big, must be less than 700kb.')
+            raise Exception('File is too big, must be less than 700kb. ' + filename)
     except os.error, e:
         raise Exception('Unable to access file ' + filename)
 
@@ -59,8 +59,7 @@ for fname in os.listdir(path + "/bgs_master/"):
     
     im_16.save(path + "/bgs/" + fname[:-4] + "_16.gif" )
     im_32.save(path + "/bgs/" + fname[:-4] + "_32.gif" )
-    
-    
+
 
 for fname in os.listdir(path + "/bgs/"):
     if fname[-3:] == "gif":
@@ -70,21 +69,3 @@ for fname in os.listdir(path + "/bgs/"):
         if bg_id not in bg:
             bg[bg_id] = {}
         bg[bg_id][size]={"headers":pack[0], "mime_data":pack[1]}
-
-print bg.keys()
-    
-    # pprint(bg[x])
-    # root = MIMEMultipart('form-data')
-    # fp = open(pwd + "/" + x +".png", "rb")
-    # data = fp.read()
-    # fp.close()
-    # 
-    # img = MIMEImage(data)
-    # 
-    # root.attach(img)
-    # img.add_header('Content-Length', str(len(img.get_payload())))
-    # 
-    # bg[x] = root
-    # print(dir(bg[x]))
-    # print bg[x]._headers
-    # print(bg[x].as_string())
