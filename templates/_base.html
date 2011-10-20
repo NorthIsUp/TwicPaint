@@ -1,7 +1,6 @@
 <html>
-  <head>
-    <title>{% block title %}{{ escape(title) if 'title' in globals() else "Default Title" }}{% end %}</title>
-  </head>
+  {% module Template("_head.html", bg=bg) %}
+
   <body>
     {% block body %}{% end %}
   </body>

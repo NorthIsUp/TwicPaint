@@ -1,21 +1,22 @@
 {% extends "_base.html" %}
 
 {% block body %}
+
 <ul>
   {% for bg_id in xrange(0, len(bg), 2) %}
-  <a href="/bg?bg_id={{ bg_id }}&size=16"><img border="0" src="/images/bgs/{{ bg_id }}_16.gif" width="16" height="16" /></a>
+  <a href="/bg?bg_id={{ bg_id }}&size=16"><img border="0" src="/images/bgs/{{ bg_id }}_16.gif" width="16" height="16" onMouseOver='javascript:changeBGImage("{{ bg_id }}_16")'/></a>
   {% end %}
   <br>
   {% for bg_id in xrange(1, len(bg), 2) %}
-  <a href="/bg?bg_id={{ bg_id }}&size=16"><img border="0" src="/images/bgs/{{ bg_id }}_16.gif" width="16" height="16" /></a>
+  <a href="/bg?bg_id={{ bg_id }}&size=16"><img border="0" src="/images/bgs/{{ bg_id }}_16.gif" width="16" height="16" onMouseOver='javascript:changeBGImage("{{ bg_id }}_16")'/></a>
   {% end %}
   <br>
   {% for bg_id in xrange(0, len(bg), 2) %}
-  <a href="/bg?bg_id={{ bg_id }}&size=32"><img border="0" src="/images/bgs/{{ bg_id }}_32.gif" width="32" height="32" /></a>
+  <a href="/bg?bg_id={{ bg_id }}&size=32"><img border="0" src="/images/bgs/{{ bg_id }}_32.gif" width="32" height="32" onMouseOver='javascript:changeBGImage("{{ bg_id }}_32")'/></a>
   {% end %}
   <br>
   {% for bg_id in xrange(1, len(bg), 2) %}
-  <a href="/bg?bg_id={{ bg_id }}&size=32"><img border="0" src="/images/bgs/{{ bg_id }}_32.gif" width="32" height="32" /></a>
+  <a href="/bg?bg_id={{ bg_id }}&size=32"><img border="0" src="/images/bgs/{{ bg_id }}_32.gif" width="32" height="32" onMouseOver='javascript:changeBGImage("{{ bg_id }}_32")'/></a>
   {% end %}
 
 </ul>
