@@ -47,7 +47,7 @@ def _pack_image(filename, max_size):
         'Content-Length': len(body)
     }
 
-    return headers, body
+    return headers, body, fpim
 
 path = os.path.abspath(os.path.dirname(__file__)+"/../static/")
 for fname in os.listdir(path + "/bgs_master/"):
@@ -68,4 +68,4 @@ for fname in os.listdir(path + "/bgs/"):
         bg_id = fname[:-7]
         if bg_id not in bg:
             bg[bg_id] = {}
-        bg[bg_id][size]={"headers":pack[0], "mime_data":pack[1]}
+        bg[bg_id][size]={"headers":pack[0], "mime_data":pack[1], "raw":pack[2]}

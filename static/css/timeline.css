@@ -1,0 +1,273 @@
+/* @override 
+	http://127.0.0.1:8888/static/css/timeline.css */
+
+body {
+	background-color:		#dbdbdb;
+	background-attachment:	scroll;
+}
+div.themeleon td, div.themeleon div, div.themeleon ul, div.themeleon button {
+	font: normal 12px/18px "Lucida Grande",arial,sans-serif;
+}
+p {
+	margin-bottom: 1em;
+}
+.twitter-container a {
+	color: #0000ff;
+}
+
+/* New Twitter Layout */
+#new-twitter-layout {
+	width:					1040px;
+	margin:					20px auto 0 auto;
+	overflow:				hidden;
+	border-right:			1px solid transparent;
+	border-top-width:		0;
+	-webkit-border-radius:	5px;
+	-moz-border-radius:		5px;
+	border-radius:			5px;
+}
+#new-twitter-layout a:hover {
+	text-decoration: underline;
+}
+
+#new-twitter-layout div.left-col {
+	float:					left;
+	width:					540px;
+	background-color:		#ffffff;
+	padding-top:			20px;
+
+	border-right:			1px solid transparent;
+	-webkit-border-radius:	5px;
+	-moz-border-radius:		5px;
+	border-radius:			5px;
+
+	-moz-box-shadow:		0 3px 4px #999999;
+	-webkit-box-shadow:		0 3px 4px #999999;
+	box-shadow:				0 3px 4px #999999;
+}
+
+#new-twitter-layout div.left-col img.twitter-img {
+	float:	left;
+	width:	128px;
+	height:	128px;
+	margin:	0 15px 0 20px;
+}
+
+#new-twitter-layout div.left-col div.profile-data {
+	float:			left;
+	width:			367px;
+	font-size:		13px;
+	margin-bottom:	20px;
+}
+
+#new-twitter-layout div.left-col div.profile-data h1 {
+	font-size:		30px;
+	line-height:	35px;
+	color:			#444444;
+	font-weight:	bold;
+	margin-bottom:	-1px;
+}
+
+#new-twitter-layout div.left-col div.profile-data h2 {
+	display:		inline;
+	font-size:		18px;
+	color:			#444444;
+	font-weight:	bold;
+	margin-right:	2px;
+	padding-right:	4px;
+}
+#new-twitter-layout div.left-col div.profile-data em {
+	display:				block;
+	color:					#444444;
+	color:					#777777;
+	font:					italic 14px/18px Georgia, serif;
+	-webkit-font-smoothing:	antialiased;
+	font-smoothing:			antialiased;
+	margin-bottom:			1px;
+}
+
+#new-twitter-layout div.left-col div.profile-controls {
+	background-color:		#f4f4f4;
+	border:					1px solid transparent;
+	-webkit-border-radius:	3px;
+	-moz-border-radius:		3px;
+	border-radius:			3px;
+	margin:					0 10px 15px 10px;
+	padding:				8px 10px 9px 15px;
+}
+#new-twitter-layout div.left-col div.profile-controls a {
+	float:			left;
+	display:		block;
+	padding-top:	4px;
+	font-size:		13px;
+	text-shadow:	0 1px 0 #ffffff;
+}
+
+#new-twitter-layout div.left-col div.profile-controls span {
+	display:	block;
+	width:		39px;
+	height:		27px;
+	float:		right;
+	background:	transparent url(../../../../images/themeleon/twitter/2.0/ui.png) no-repeat -485px -108px;
+}
+
+#new-twitter-layout div.left-col div.status-update,
+#new-twitter-layout div.left-col div.status-update-first {
+	padding:			10px 20px;
+	background-color:	#ffffff;
+	border-bottom:		1px solid #ebebeb;
+}
+
+
+
+#new-twitter-layout div.left-col div.status-update img.photo,
+#new-twitter-layout div.left-col div.status-update-first img.photo {
+	display:	block;
+	margin:		4px 10px 0 0;
+	float:		left;
+	width:		48px;
+	height:		48px;
+}
+
+#new-twitter-layout div.left-col div.status-update div.tweet,
+#new-twitter-layout div.left-col div.status-update-first div.tweet {
+	display:		block;
+/*	float:			left;*/
+	width:			442px;
+	font-size:		15px;
+	line-height:	19px;
+}
+
+#new-twitter-layout div.left-col div.tweet,
+#new-twitter-layout div.left-col div.tweet div,
+#new-twitter-layout div.left-col div.tweet a,
+#new-twitter-layout div.left-col div.tweet span {
+	font-family: "Helvetica Neue",arial,sans-serif;
+}
+
+#new-twitter-layout div.left-col div.status-update div.tweet a.date,
+#new-twitter-layout div.left-col div.status-update-first div.tweet a.date {
+	color:		#999999 !important;
+	font-size:	11px;
+}
+
+#new-twitter-layout div.left-col div.bird {
+	background:	transparent url(../../../../images/themeleon/twitter/2.0/ui.png) no-repeat -501px -45px;
+	width:		27px;
+	height:		19px;
+	margin:		25px auto;
+}
+
+
+.tweet-user-name, 
+.tweet-user-name a {
+	font-size:		15px;
+	line-height:	15px;
+	color:			#333333 !important;
+	font-weight:	bold;
+	margin-right:	4px;
+}
+
+.tweet-full-name {
+	color:			#999999;
+	font-size:		12px;
+	line-height:	15px;
+}
+
+
+
+#new-twitter-layout div.right-col {
+	float:				left;
+	width:				459px;
+	margin:				22px 20px 20px 20px;
+	background-color:	transparent;
+}
+#new-twitter-layout div.right-col img.profile-img {
+	display:		block;
+	float:			left;
+	width:			24px;
+	height:			24px;
+	margin-right:	5px;
+}
+#new-twitter-layout div.right-col span.user-name {
+	display:		block;
+	float:			left;
+	font-size:		16px;
+	line-height:	24px;
+}
+
+.user-stats {
+	margin-top: 20px;
+}
+.user-stats li:first-child {
+	border-left:	0 none;
+	padding-left:	1px;
+}
+.user-stats li:last-child {
+	border-right-width: 0;
+}
+.user-stats li {
+	border-left:	1px solid rgba(255,255,255,0.3);
+	border-right:	1px solid rgba(0,0,0,0.1);
+	float:			left;
+	margin-left:	0;
+	overflow:		hidden;
+	padding:		0 12px;
+}
+.user-stats-count {
+	color:			#444444;
+	display:		block;
+	font-size:		15px;
+	font-weight:	bold;
+	line-height:	1;
+}
+.user-stats-count:hover {
+	text-decoration: none !important;
+}
+.user-stats-stat {
+	clear:			both;
+	display:		block;
+	font-size:		11px;
+	font-weight:	normal;
+	padding:		3px 0;
+}
+.user-stats-count:hover span.user-stats-stat {
+	text-decoration: underline;
+}
+div.right-col div.hr {
+	height:				1px;
+	margin:				20px 0;
+	border-top:			1px solid rgba(255,255,255,0.3);
+	background-color:	rgba(0,0,0,0.1);
+}
+#new-twitter-layout div.right-col span.following,
+#new-twitter-layout div.right-col span.sponsored-by {
+	font-size:		16px;
+	line-height:	24px;
+}
+#new-twitter-layout div.right-col span.sponsored-by {
+	display:		block;
+	margin-bottom:	10px;
+}
+#new-twitter-layout div.right-col div.friend-list {
+	margin:	5px 0 30px 0;
+	width:	470px;
+}
+#new-twitter-layout div.right-col div.friend-list div.f {
+	float:			left;
+	width:			24px;
+	height:			24px;
+	margin-right:	5px;
+	cursor:			pointer;
+}
+div.right-col a.sign-out {
+	float:					right;
+	background-color:		#e3e3e3 !important;
+	color:					#535353 !important;
+	font-weight:			bold;
+	border:					1px solid #b4b4b4 !important;
+	-webkit-border-radius:	4px;
+	-moz-border-radius:		4px;
+	border-radius:			4px;
+	padding:				2px 10px;
+}

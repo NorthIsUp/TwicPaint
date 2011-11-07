@@ -2,20 +2,7 @@
   <head>
     <title>{% block title %}{{ escape(title) if 'title' in globals() else "Default Title" }}{% end %}</title>
     
-    <script type="text/javascript"> 
-    var backImage = new Array(); // don't change this
-
-    {% for bg_id in xrange(0, len(bg)) %}
-      backImage["{{ bg_id }}" + "_16"] = "/images/bgs/{{ bg_id }}_16.gif";
-      backImage["{{ bg_id }}" + "_32"] = "/images/bgs/{{ bg_id }}_32.gif";
-    {% end %}
-
-    function changeBGImage(whichImage){
-    if (document.body){
-      document.body.background = backImage[whichImage];
-      }
-    }
-    </script>
+    {% block static %}{% end %}
 
   </head>
   <body>

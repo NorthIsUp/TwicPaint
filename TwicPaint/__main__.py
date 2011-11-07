@@ -6,6 +6,8 @@ import tornado.httpserver
 import tornado.ioloop
 import tornado.options
 import tornado.web
+import tornado.gen
+
 from tornado import httpclient
 from tornado import escape
 from tornado.httputil import url_concat
@@ -40,8 +42,10 @@ class Application(tornado.web.Application):
             (r"/auth/login", AuthHandler),
             (r"/auth/logout", LogoutHandler),
             (r"/bg", BackGroundHandler),
+            (r"/tl", TimelineHandler),
             # (r"/images/bgs/(.*)", tornado.web.StaticFileHandler, {"path": os.path.join(os.path.dirname(__file__), "static/bgs")}),
             (r"/images/(.*)", tornado.web.StaticFileHandler, {"path": os.path.join(os.path.dirname(__file__), "static")}),
+            (r"/static/css/(.*)", tornado.web.StaticFileHandler, {"path": os.path.join(os.path.dirname(__file__), "static/css")}),
         ]
         settings = dict(
             login_url="/auth/login",
@@ -64,6 +68,9 @@ class BaseHandler(tornado.web.RequestHandler, tornado.auth.TwitterMixin):
         user_json = self.get_secure_cookie("user")
         if not user_json: return None
         return tornado.escape.json_decode(user_json)
+
+    def get_current_access_token(self):
+        return self.get_current_user()["access_token"]
 
     def twitter_request(self, path, callback, access_token=None, post_args=None, body=None, headers=None, **args):
         # Add the OAuth resource request signature if we have credentials
@@ -109,12 +116,29 @@ class MainHandler(BaseHandler):
         'title':"Welcome!",
         'bg':bg.bg.keys(),
         }
+
         self.render("swatch.html", **d)
 
+
+class TimelineHandler(BaseHandler):
+    @tornado.web.authenticated
+    @tornado.web.asynchronous
+    @tornado.gen.engine
+    def get(self):
+        tweets = yield tornado.gen.Task(self.twitter_request,
+                "/statuses/user_timeline",
+                access_token=self.get_current_access_token(),
+                )
+        profile = yield tornado.gen.Task(self.twitter_request,
+                "/statuses/user_timeline",
+                access_token=self.get_current_access_token(),
+                )
+        self.render("timeline.html", tweets=tweets, profile=profile)
 
 class BackGroundHandler(BaseHandler):
     @tornado.web.authenticated
     @tornado.web.asynchronous
+    @tornado.gen.engine
     def get(self):
         logging.info("=*"*40)
         logging.info("=*"*40)
@@ -128,16 +152,26 @@ class BackGroundHandler(BaseHandler):
         
         headers = bg.bg[bg_id][size]["headers"]
         body=bg.bg[bg_id][size]["mime_data"]
+        # raw=bg.bg[bg_id][size]["raw"]
         
-        self.twitter_request(
+        # result = yield tornado.gen.Task(self.twitter_request,
+        #                             "/account/update_profile_background_image",
+        #                             image=raw,
+        #                             access_token=user['access_token'])
+        # print result
+
+
+        result = yield tornado.gen.Task(self.twitter_request,
             "/account/update_profile_background_image",
             access_token=user['access_token'],
             headers=headers,
             body=body,
             use=1,
             tile=1,
-            callback=self.async_callback(self._on_post)
+            # callback=self.async_callback(self._on_post)
         )
+
+        self.redirect("/?backgroundimage=updated")
 
     def _on_post(self, new_entry):
         if not new_entry:
@@ -148,7 +182,8 @@ class BackGroundHandler(BaseHandler):
         logging.info(pformat(new_entry))
         self.finish("<code>%s</code>"%pformat(new_entry))
 
-class TwitterHandler(tornado.web.RequestHandler, tornado.auth.TwitterMixin):
+
+class AuthHandler(BaseHandler):
     @tornado.web.asynchronous
     def get(self):
         if self.get_argument("oauth_token", None):
@@ -162,13 +197,17 @@ class TwitterHandler(tornado.web.RequestHandler, tornado.auth.TwitterMixin):
         logging.info(pformat(user))
         self.set_secure_cookie("user", tornado.escape.json_encode(user))
         self.redirect("/")
-
-class AuthHandler(BaseHandler, TwitterHandler):
     pass
 
 class LogoutHandler(BaseHandler):
     def get(self):
+        logout = yield tornado.gen.Task(self.twitter_request,
+                "/account/end_session",
+                access_token=self.get_current_access_token(),
+                )
         self.clear_cookie("user")
+
+        #TODO show logout "OK" screen
         self.redirect("/")
 
 def main():
