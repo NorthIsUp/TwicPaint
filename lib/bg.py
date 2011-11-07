@@ -49,9 +49,9 @@ def _pack_image(filename, max_size):
 
     return headers, body, fpim
 
-path = os.path.abspath(os.path.dirname(__file__)+"/../static/")
-for fname in os.listdir(path + "/bgs_master/"):
-    im = Image.open(path + "/bgs_master/" + fname)
+path = os.path.abspath(os.path.join(os.path.dirname(__file__),"../static/"))
+for fname in os.listdir(os.path.join(path , "bgs_master")):
+    im = Image.open(os.path.join(path, "bgs_master", fname))
     im.load()
     
     im_16 = im.resize((16, 16))

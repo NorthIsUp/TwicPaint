@@ -1,5 +1,9 @@
 import tornado.web
 import tornado.auth
+import tornado.escape
+import tornado.httpclient
+
+import urllib
 
 class BaseHandler(tornado.web.RequestHandler, tornado.auth.TwitterMixin):
     def escape(self,s):
@@ -26,7 +30,7 @@ class BaseHandler(tornado.web.RequestHandler, tornado.auth.TwitterMixin):
             args.update(oauth)
         if args: url += "?" + urllib.urlencode(args)
         callback = self.async_callback(self._on_twitter_request, callback)
-        http = httpclient.AsyncHTTPClient()
+        http = tornado.httpclient.AsyncHTTPClient()
         if post_args is not None:
             http.fetch(url, method="POST", body=urllib.urlencode(post_args), headers=headers, callback=callback)
         elif body is not None:
@@ -37,7 +41,7 @@ class BaseHandler(tornado.web.RequestHandler, tornado.auth.TwitterMixin):
     def _on_twitter_request(self, callback, response):
         if response.error:
             try:
-                rb = escape.json_decode(response.body)
+                rb = tornado.escape.json_decode(response.body)
                 logging.warning("%s\n%s\n%s", response.error, rb['error'], rb['request'])
             except:
                 logging.warning("%s\n%s", response.error, response.request.url)
@@ -46,8 +50,7 @@ class BaseHandler(tornado.web.RequestHandler, tornado.auth.TwitterMixin):
             # logging.info(pformat(response.request.__dict__))
             callback(None)
             return
-        callback(escape.json_decode(response.body))
-
+        callback(tornado.escape.json_decode(response.body))
 
 class AuthHandler(BaseHandler):
     @tornado.web.asynchronous
