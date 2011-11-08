@@ -1,43 +1,50 @@
 {% extends "_base.html" %}
 
 {% block static %}
-<link rel="stylesheet" href="/static/css/timeline.css" type="text/css" media="all" />
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.min.js"></script>
+	<!-- script type="text/javascript" src="/static/js/twicpaint.js"></script -->
+	<link rel="stylesheet" href="/static/css/timeline.css" type="text/css" media="all" /> 
 
-<script type="text/javascript"> 
-	var backImage = new Array(); // don't change this
+	<script type="text/javascript"> 
+		var backImage = new Array(); // don't change this
 
-	{% for bg_id in xrange(0, len(bg)) %}
-	  backImage["{{ bg_id }}" + "_16"] = "/images/bgs/{{ bg_id }}_16.gif";
-	  backImage["{{ bg_id }}" + "_32"] = "/images/bgs/{{ bg_id }}_32.gif";
-	{% end %}
+		// convert to use sizes
+		{% for bg_id in xrange(0, bg.count) %}
+		  backImage["{{ bg_id }}" + "_16"] = "url(/images/bgs/{{ bg_id }}_16.gif)";
+		  backImage["{{ bg_id }}" + "_32"] = "url(/images/bgs/{{ bg_id }}_32.gif)";
+		{% end %}
 
-	function changeBGImage(whichImage){
-	if (document.body){
-	  document.body.background = backImage[whichImage];
-	  }
-	}
-</script>
+		function changeBGImage(whichImage){
+			$('#timeline').css("background-image", backImage[whichImage]);
+		}
+
+	</script>
 {% end %}
 
 {% block body %}
-<ul>
-	{% for size in [16, 32] %}
-		{% for bg_id in xrange(0, len(bg), 2) %}
-			<a href="/bg?bg_id={{ bg_id }}&size={{size}}"><img border="0" src="/images/bgs/{{ bg_id }}_{{size}}.gif" width="{{size}}" height="{{size}}" onMouseOver='javascript:changeBGImage("{{ bg_id }}_{{size}}")'/></a>
-		{% end %}	
-		<br>
-		{% for bg_id in xrange(1, len(bg), 2) %}
-			<a href="/bg?bg_id={{ bg_id }}&size={{size}}"><img border="0" src="/images/bgs/{{ bg_id }}_{{size}}.gif" width="{{size}}" height="{{size}}" onMouseOver='javascript:changeBGImage("{{ bg_id }}_{{size}}")'/></a>
+<div class="swatch_picker">
+	<ul>
+		{% for size in bg.sizes %}
+			{% for bg_id in xrange(0, bg.count, 2) %}
+			<a href="/bg?bg_id={{ bg_id }}&size={{size}}">
+				<div style="float:left;width:{{size}}px;height:{{size}}px;background-image:url('/images/bgs/composite_{{size}}.png');background-position:{{bg.bg[str(bg_id)][str(size)]['x']}}px {{bg.bg[str(bg_id)][str(size)]['y']}}px" onMouseOver='javascript:changeBGImage("{{ bg_id }}_{{size}}")'></div>
+			</a>
+			{% end %}
+			<br>
+			{% for bg_id in xrange(1, bg.count, 2) %}
+			<a href="/bg?bg_id={{ bg_id }}&size={{size}}">
+				<div style="float:left;width:{{size}}px;height:{{size}}px;background-image:url('/images/bgs/composite_{{size}}.png');background-position:{{bg.bg[str(bg_id)][str(size)]['x']}}px {{bg.bg[str(bg_id)][str(size)]['y']}}px" onMouseOver='javascript:changeBGImage("{{ bg_id }}_{{size}}")'></div>{% end %}
+			</a>
+			<br>
 		{% end %}
-		<br>
-	{% end %}
-</ul>
+	</ul>
+</div>
+<div id="timeline">
+	{% include "timeline.html" %}
+</div>
 
-{% block paint %}
-
-
-
+<!-- {% block paint %}
 		<img border="0" src="/images/images/MacPaint.gif">
-{% end %}
+{% end %} -->
 {% end %}
 

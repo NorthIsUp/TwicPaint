@@ -12,7 +12,6 @@ import settings
 
 tornado.options.define("port", default=8888, help="run on the given port", type=int)
 
-logging.disable(0)
 logging.critical("using tornado version: %s", tornado.version)
 
 class Application(tornado.web.Application):

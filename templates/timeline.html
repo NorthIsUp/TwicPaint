@@ -1,78 +1,71 @@
- {% module Template("_head.html") %}
-
-
-{% block static %}
-<link rel="stylesheet" href="/static/css/timeline.css" type="text/css" media="all" /> 
-{% end %}
-
 <div id="new-twitter-layout">
-	<div class="left-col"><img src="http://a3.twimg.com/profile_images/291489496/photo_1_58abde00a51efd0c75d7cb69e7837c67_reasonably_small.jpg" class="twitter-img" alt="NorthIsUp" />
+	<div class="left-col"><img src="{{user['profile_image_url'].replace('_normal', '_reasonably_small')}}" class="twitter-img" alt="{{user['screen_name']}}" />
 		<div class="profile-data">
-		<h1>Adam</h1><h2>@NorthIsUp</h2>Palo Alto<br /><em>Work: Software Engineer at Skype, cloud technology group.
-		Love: Python, Web Scale, DHTs
-		Organizer: #ArchCamp, the meetup by engineers, for engineers</em><a href="#" onclick="return false;">http://northisup.com</a>
+		<h1>{{user['name']}}</h1><h2>@{{user['screen_name']}}</h2>{{user['location']}}<br /><em>{{user['description']}}</em><a href="#" onclick="return false;">{{user['url']}}</a>
 		</div>
 		<div class="clear"></div>
 
-		<div class="profile-controls"><span></span><a href="#" onclick="return false;">Edit your profile →</a>
+		<div class="profile-controls">
+			<span></span>
+			<a href="#" onclick="return false;">Edit your profile →</a>
 			<div class="clear"></div>
 		</div>
 
-<!-- 	<div style="margin-bottom: 2px;"><ul class="stream-tabs"><li class="stream-tab active"><p class="tab-text">Timeline</p></li><li class="stream-tab"><a href="#" class="tab-text">Favorites</a></li><li class="stream-tab"><a href="#" class="tab-text">Following</a></li><li class="stream-tab"><a href="#" class="tab-text">Followers</a></li><li class="stream-tab dropdown-link"><a href="#" class="tab-text">Lists<i></i></a></li></ul></div> -->
-	<!-- <div class="status-update-first"><img src="http://a3.twimg.com/profile_images/291489496/photo_1_58abde00a51efd0c75d7cb69e7837c67_normal.jpg" class="photo" alt="NorthIsUp" />
-		<div class="tweet">
-			<div class="tweet-user-name"><a title="Adam" href="#" onclick="return false;">NorthIsUp</a><span class="tweet-full-name">Adam</span></div>
-			@<a href="#" onclick="return false;" target="_blank">RavenBrowser</a> I do! only for Visor.bundle<br /><a href="#" onclick="return false;" class="date">04 Nov</a>
+		<div style="margin-bottom: 2px;">
+			<ul class="stream-tabs">
+				<li class="stream-tab active"><span class="tab-text">Timeline</span></li>
+				<li class="stream-tab"><a href="#" class="tab-text">Favorites</a></li>
+				<li class="stream-tab"><a href="#" class="tab-text">Following</a></li>
+				<li class="stream-tab"><a href="#" class="tab-text">Followers</a></li>
+				<li class="stream-tab dropdown-link"><a href="#" class="tab-text">Lists<i></i></a></li>
+			</ul>
 		</div>
-		<div class="clear"></div>
-	</div> -->
 
-	{% for su in tweets %}
-		<div class="status-update"><img src="{{su['user']['profile_image_url']}}" class="photo" alt="{{su['user']['screen_name']}}" />
+		{% for i, su in enumerate(tweets) %}
+		<div class="status-update{{ '-first' if i == 0 else '' }}"><img src="{{su['user']['profile_image_url']}}" class="photo" alt="{{su['user']['screen_name']}}" />
 			<div class="tweet">
 				<div class="tweet-user-name">
-					<a title="{{su['user']['name']}}" href="#" onclick="return false;">NorthIsUp</a><span class="tweet-full-name">Adam</span>
+					<a title="{{su['user']['name']}}" href="#" onclick="return false;">{{su['user']['screen_name']}}</a><span class="tweet-full-name">{{su['user']['name']}}</span>
 				</div>
 				{{su['text']}}<br /><a href="#" onclick="return false;" class="date">{{su['created_at']}}</a>
 			</div>
 			<div class="clear"></div>
 		</div>
-	{% end %}
+		{% end %}
+		<!-- put a bird on it -->
+		<div class="bird"></div> 
+	</div>
 
+	<div class="right-col"><a href="#" onclick="confirmRedirect('Are you sure you want to sign out of Twitter?','/themeleon/twitter/start-over'); return false;" class="sign-out">Sign out</a><img src="http://a3.twimg.com/profile_images/291489496/photo_1_58abde00a51efd0c75d7cb69e7837c67_normal.jpg" class="profile-img" alt="NorthIsUp" /><span class="user-name">NorthIsUp</span>
+	
+		<div class="clear"></div>
+		<ul class="user-stats"><li><a href="#" onclick="return false;" class="user-stats-count">1,844<span class="user-stats-stat">Tweets</span></a></li><li><a href="#" onclick="return false;" class="user-stats-count">184<span class="user-stats-stat">Following</span></a></li><li><a href="#" onclick="return false;" class="user-stats-count">191<span class="user-stats-stat">Followers</span></a></li><li><a href="#" onclick="return false;" class="user-stats-count">12<span class="user-stats-stat">Listed</span></a></li></ul>
+		<div class="clear"></div>
+		<div class="hr"></div>
+		<a href="#" onclick="return false;"><span class="following">Following</span><span style="font-size: 13px; font-weight: bold; margin-left: 5px;">184</span></a>
+		<div class="clear"></div>
+		<div class="friend-list">
 
-
-//////////////////////////////////////////////////
-
-<!-- figure this out -->
-<div class="bird"></div>
+		<!-- for loop for these -->
+		<div class="f" style="background: url(http://a2.twimg.com/profile_images/1616270444/avatar_mini.png) center center" title="Stories"></div>
+		<div class="f" style="background: url(http://a1.twimg.com/profile_images/1190528709/hib_quick_montage_normal.jpeg) center center" title="Jeffrey Rosen"></div>
+		<div class="f" style="background: url(http://a3.twimg.com/profile_images/1564171748/AS_Twitter_128_mini.jpg) center center" title="AeroShot Pure Energy"></div>
+		<div class="f" style="background: url(http://a2.twimg.com/profile_images/1443391515/lunapic_131070753780429__mini.png) center center" title="Brianna Reynaud"></div>
+		<div class="f" style="background: url(http://a0.twimg.com/profile_images/1561001917/icon_mini.png) center center" title="Raven for Mac"></div>
+		<div class="f" style="background: url(http://a1.twimg.com/profile_images/1615077519/MayerHawthorne_mini.jpg) center center" title="Mayer Hawthorne"></div>
+		<div class="f" style="background: url(http://a2.twimg.com/profile_images/530013472/Picture_4_mini.png) center center" title="Ignite Bay Area"></div>
+		<div class="f" style="background: url(http://a3.twimg.com/profile_images/674989841/ignite_mini.png) center center" title="Ignite SiliconValley"></div>
+		<div class="f" style="background: url(http://a1.twimg.com/profile_images/1565565207/gromit_mini.jpg) center center" title="roake"></div>
+		<div class="f" style="background: url(http://a1.twimg.com/profile_images/1057739849/5cbcaf58-8157-45b7-ac16-34835a47ea82_mini.png) center center" title="Amsterdamize"></div>
+		<div class="f" style="background: url(http://a0.twimg.com/profile_images/181412758/logo_mini.jpg) center center" title="coffeehouse coders"></div>
+		<div class="f" style="background: url(http://a3.twimg.com/profile_images/1531999493/72px_sq_mini.jpg) center center" title="AttackWatch.com"></div>
+		<div class="f" style="background: url(http://a0.twimg.com/profile_images/1309778763/bruce-face_mini.jpg) center center" title="Bruce Lowekamp"></div>
+		<div class="f" style="background: url(http://a2.twimg.com/profile_images/1344192911/171081_993485190560_910412_52802762_4333541_o_mini.jpg) center center" title="Aziza Ansari"></div>
+		<div class="f" style="background: url(http://a2.twimg.com/profile_images/124932069/Triffids_Trailer_3_mini.jpg) center center" title="Eddie Izzard"></div>
+		<div class="f" style="background: url(http://a0.twimg.com/profile_images/1165488423/S09Handsewn1_mini.jpg) center center" title="Sebago"></div>
+		<div class="clear"></div>
+		</div>
+		<div class="hr"></div>
+	</div>
+	<div class="clear"></div>
 </div>
-<div class="right-col"><a href="#" onclick="confirmRedirect('Are you sure you want to sign out of Twitter?','/themeleon/twitter/start-over'); return false;" class="sign-out">Sign out</a><img src="http://a3.twimg.com/profile_images/291489496/photo_1_58abde00a51efd0c75d7cb69e7837c67_normal.jpg" class="profile-img" alt="NorthIsUp" /><span class="user-name">NorthIsUp</span><div class="clear"></div>
-<ul class="user-stats"><li><a href="#" onclick="return false;" class="user-stats-count">1,844<span class="user-stats-stat">Tweets</span></a></li><li><a href="#" onclick="return false;" class="user-stats-count">184<span class="user-stats-stat">Following</span></a></li><li><a href="#" onclick="return false;" class="user-stats-count">191<span class="user-stats-stat">Followers</span></a></li><li><a href="#" onclick="return false;" class="user-stats-count">12<span class="user-stats-stat">Listed</span></a></li></ul><div class="clear"></div>
-<div class="hr"></div>
-<a href="#" onclick="return false;"><span class="following">Following</span><span style="font-size: 13px; font-weight: bold; margin-left: 5px;">184</span></a><div class="clear"></div>
-<div class="friend-list"><div class="f" style="background: url(http://a2.twimg.com/profile_images/1616270444/avatar_mini.png) center center" title="Stories"></div>
-<div class="f" style="background: url(http://a1.twimg.com/profile_images/1190528709/hib_quick_montage_normal.jpeg) center center" title="Jeffrey Rosen"></div>
-<div class="f" style="background: url(http://a3.twimg.com/profile_images/1564171748/AS_Twitter_128_mini.jpg) center center" title="AeroShot Pure Energy"></div>
-<div class="f" style="background: url(http://a2.twimg.com/profile_images/1443391515/lunapic_131070753780429__mini.png) center center" title="Brianna Reynaud"></div>
-<div class="f" style="background: url(http://a0.twimg.com/profile_images/1561001917/icon_mini.png) center center" title="Raven for Mac"></div>
-<div class="f" style="background: url(http://a1.twimg.com/profile_images/1615077519/MayerHawthorne_mini.jpg) center center" title="Mayer Hawthorne"></div>
-<div class="f" style="background: url(http://a2.twimg.com/profile_images/530013472/Picture_4_mini.png) center center" title="Ignite Bay Area"></div>
-<div class="f" style="background: url(http://a3.twimg.com/profile_images/674989841/ignite_mini.png) center center" title="Ignite SiliconValley"></div>
-<div class="f" style="background: url(http://a1.twimg.com/profile_images/1565565207/gromit_mini.jpg) center center" title="roake"></div>
-<div class="f" style="background: url(http://a1.twimg.com/profile_images/1057739849/5cbcaf58-8157-45b7-ac16-34835a47ea82_mini.png) center center" title="Amsterdamize"></div>
-<div class="f" style="background: url(http://a0.twimg.com/profile_images/181412758/logo_mini.jpg) center center" title="coffeehouse coders"></div>
-<div class="f" style="background: url(http://a3.twimg.com/profile_images/1531999493/72px_sq_mini.jpg) center center" title="AttackWatch.com"></div>
-<div class="f" style="background: url(http://a0.twimg.com/profile_images/1309778763/bruce-face_mini.jpg) center center" title="Bruce Lowekamp"></div>
-<div class="f" style="background: url(http://a2.twimg.com/profile_images/1344192911/171081_993485190560_910412_52802762_4333541_o_mini.jpg) center center" title="Aziza Ansari"></div>
-<div class="f" style="background: url(http://a2.twimg.com/profile_images/124932069/Triffids_Trailer_3_mini.jpg) center center" title="Eddie Izzard"></div>
-<div class="f" style="background: url(http://a0.twimg.com/profile_images/1165488423/S09Handsewn1_mini.jpg) center center" title="Sebago"></div>
-<div class="clear"></div>
-</div>
-<div class="hr"></div>
-
-</div>
-<div class="clear"></div>
-</div>
-
-</div>
-<script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script><noscript><img src="http://pixel.quantserve.com/pixel/p-0eUEUzVYOgu22.gif" style="display: none;" height="1" width="1" alt="Quantcast" /></noscript><script type="text/javascript">_qacct="p-0eUEUzVYOgu22";quantserve();</script> 

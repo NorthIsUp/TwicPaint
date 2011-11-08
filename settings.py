@@ -1,4 +1,5 @@
 import tornado.escape
+from lib.bg import BG
 
 try:
     config = tornado.escape.json_decode(open('keys.json').read())
@@ -16,4 +17,4 @@ settings = dict(
     twitter_consumer_key=twitter_consumer_key,
     twitter_consumer_secret=twitter_consumer_secret,
     debug=True,
-)
+    )

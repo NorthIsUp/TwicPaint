@@ -5,6 +5,8 @@ import tornado.httpclient
 
 import urllib
 
+import logging
+
 class BaseHandler(tornado.web.RequestHandler, tornado.auth.TwitterMixin):
     def escape(self,s):
         """Escape a URL including any /."""

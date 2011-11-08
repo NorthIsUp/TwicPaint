@@ -7,6 +7,7 @@ body {
 }
 div.themeleon td, div.themeleon div, div.themeleon ul, div.themeleon button {
 	font: normal 12px/18px "Lucida Grande",arial,sans-serif;
+	font: Chicago;
 }
 p {
 	margin-bottom: 1em;
@@ -96,7 +97,7 @@ p {
 	padding:				8px 10px 9px 15px;
 }
 #new-twitter-layout div.left-col div.profile-controls a {
-	float:			left;
+/*	float:			left;*/
 	display:		block;
 	padding-top:	4px;
 	font-size:		13px;
@@ -108,7 +109,7 @@ p {
 	width:		39px;
 	height:		27px;
 	float:		right;
-	background:	transparent url(../../../../images/themeleon/twitter/2.0/ui.png) no-repeat -485px -108px;
+	background:	transparent url(/static/images/ui.png) no-repeat -485px -108px;
 }
 
 #new-twitter-layout div.left-col div.status-update,
@@ -152,7 +153,7 @@ p {
 }
 
 #new-twitter-layout div.left-col div.bird {
-	background:	transparent url(../../../../images/themeleon/twitter/2.0/ui.png) no-repeat -501px -45px;
+	background:	transparent url(/static/images/ui.png) no-repeat -501px -45px;
 	width:		27px;
 	height:		19px;
 	margin:		25px auto;
@@ -270,4 +271,67 @@ div.right-col a.sign-out {
 	-moz-border-radius:		4px;
 	border-radius:			4px;
 	padding:				2px 10px;
+}
+
+
+.stream-tabs {
+	border-bottom:1px solid #eeeeee;
+	display:block;
+	height:30px;
+	list-style-type:none;
+	padding:0 10px;
+}
+
+.stream-tabs .stream-tab {
+	cursor:pointer;
+	float:left;
+	position:relative;
+}
+
+.stream-tabs .stream-tab.active .tab-text {
+	-webkit-border-radius:	4px 4px 0 0;
+	-moz-border-radius:		4px 4px 0 0;
+	border-radius:			4px 4px 0 0;
+	background-color:		#ffffff;
+	border-color:			#eeeeee #eeeeee #ffffff #eeeeee;
+	color:					#333333;
+	font-weight:			bold;
+}
+
+.stream-tabs .tab-text {
+	-webkit-border-radius:	4px 4px 0 0;
+	-moz-border-radius:		4px 4px 0 0;
+	border-radius:			4px 4px 0 0;
+	float:					left;
+	position:				relative;
+	border:					1px solid transparent;
+	cursor:					pointer;
+	display:				block;
+	line-height:			24px;
+	overflow:				hidden;
+	padding:				3px 10px 2px 10px;
+	text-decoration:		none;
+	text-shadow:			0 1px 0 #FFFFFF;
+	text-decoration:		none !important;
+}
+.stream-tabs .tab-text:hover {
+	background-color:	#eeeeee;
+	border-color:		#eeeeee;
+}
+.stream-tabs .tab-text i {
+	display:			inline-block;
+	position:			relative;
+	top:				2px;
+	height:				13px;
+	width:				7px;
+	background:			transparent url(/static/images/ui.png) no-repeat -501px -31px;
+	margin-left:		4px;
+	opacity:			0.4;
+	filter:				alpha(opacity=40);
+	overflow:			hidden;
+}
+
+.stream-tabs .tab-text i:hover {
+	opacity:	1;
+	filter:		alpha(opacity=100);
 }
